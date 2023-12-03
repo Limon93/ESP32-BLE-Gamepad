@@ -23,11 +23,6 @@ void loop()
 {
     if (bleGamepad.isConnected())
     {
-        if(batteryLevel > 0)
-        {
-            batteryLevel -= 1;
-        }
-        
         Serial.print("Battery Level Set To: ");
         Serial.println(batteryLevel);
         bleGamepad.setBatteryLevel(batteryLevel);

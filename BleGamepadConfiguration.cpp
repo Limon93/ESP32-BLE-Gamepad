@@ -5,12 +5,11 @@ BleGamepadConfiguration::BleGamepadConfiguration() : _controllerType(CONTROLLER_
                                                      _hidReportId(3),
                                                      _buttonCount(16),
                                                      _hatSwitchCount(1),
-                                                     _whichSpecialButtons{false, false, false, false, false, false, false, false},
+                                                     _whichSpecialButtons{false, false, false, false, false, false, false, false, false, false},
                                                      _whichAxes{true, true, true, true, true, true, true, true},
                                                      _whichSimulationControls{false, false, false, false, false},
                                                      _vid(0xe502),
                                                      _pid(0xbbab),
-													 _guidVersion(0x0110),
                                                      _axesMin(0x0000),
                                                      _axesMax(0x7FFF),
                                                      _simulationMin(0x0000),
@@ -48,7 +47,7 @@ uint8_t BleGamepadConfiguration::getDesktopSpecialButtonCount()
 uint8_t BleGamepadConfiguration::getConsumerSpecialButtonCount()
 {
     int count = 0;
-    for (int i = 3; i < 8; i++)
+    for (int i = 3; i < 10; i++)
     {
         count += (int)_whichSpecialButtons[i];
     }
@@ -80,7 +79,6 @@ uint8_t BleGamepadConfiguration::getSimulationCount()
 
 uint16_t BleGamepadConfiguration::getVid(){ return _vid; }
 uint16_t BleGamepadConfiguration::getPid(){ return _pid; }
-uint16_t BleGamepadConfiguration::getGuidVersion(){ return _guidVersion; }
 int16_t BleGamepadConfiguration::getAxesMin(){ return _axesMin; }
 int16_t BleGamepadConfiguration::getAxesMax(){ return _axesMax; }
 int16_t BleGamepadConfiguration::getSimulationMin(){ return _simulationMin; }
@@ -98,6 +96,8 @@ bool BleGamepadConfiguration::getIncludeBack() { return _whichSpecialButtons[BAC
 bool BleGamepadConfiguration::getIncludeVolumeInc() { return _whichSpecialButtons[VOLUME_INC_BUTTON]; }
 bool BleGamepadConfiguration::getIncludeVolumeDec() { return _whichSpecialButtons[VOLUME_DEC_BUTTON]; }
 bool BleGamepadConfiguration::getIncludeVolumeMute() { return _whichSpecialButtons[VOLUME_MUTE_BUTTON]; }
+bool BleGamepadConfiguration::getIncludeNextTrack() { return _whichSpecialButtons[NEXT_TRACK_BUTTON]; }
+bool BleGamepadConfiguration::getIncludePreviousTrack() { return _whichSpecialButtons[PREVIOUS_TRACK_BUTTON]; }
 const bool *BleGamepadConfiguration::getWhichSpecialButtons() const { return _whichSpecialButtons; }
 bool BleGamepadConfiguration::getIncludeXAxis() { return _whichAxes[X_AXIS]; }
 bool BleGamepadConfiguration::getIncludeYAxis() { return _whichAxes[Y_AXIS]; }
@@ -120,7 +120,7 @@ char *BleGamepadConfiguration::getSerialNumber(){ return _serialNumber; }
 char *BleGamepadConfiguration::getFirmwareRevision(){ return _firmwareRevision; }
 char *BleGamepadConfiguration::getHardwareRevision(){ return _hardwareRevision; }
 
-void BleGamepadConfiguration::setWhichSpecialButtons(bool start, bool select, bool menu, bool home, bool back, bool volumeInc, bool volumeDec, bool volumeMute)
+void BleGamepadConfiguration::setWhichSpecialButtons(bool start, bool select, bool menu, bool home, bool back, bool volumeInc, bool volumeDec, bool volumeMute, bool nextTrack, bool previuosTrack)
 {
     _whichSpecialButtons[START_BUTTON] = start;
     _whichSpecialButtons[SELECT_BUTTON] = select;
@@ -130,6 +130,8 @@ void BleGamepadConfiguration::setWhichSpecialButtons(bool start, bool select, bo
     _whichSpecialButtons[VOLUME_INC_BUTTON] = volumeInc;
     _whichSpecialButtons[VOLUME_DEC_BUTTON] = volumeDec;
     _whichSpecialButtons[VOLUME_MUTE_BUTTON] = volumeMute;
+	_whichSpecialButtons[NEXT_TRACK_BUTTON] = nextTrack;
+    _whichSpecialButtons[PREVIOUS_TRACK_BUTTON] = previuosTrack;
 }
 
 void BleGamepadConfiguration::setWhichAxes(bool xAxis, bool yAxis, bool zAxis, bool rxAxis, bool ryAxis, bool rzAxis, bool slider1, bool slider2)
@@ -166,6 +168,8 @@ void BleGamepadConfiguration::setIncludeBack(bool value) { _whichSpecialButtons[
 void BleGamepadConfiguration::setIncludeVolumeInc(bool value) { _whichSpecialButtons[VOLUME_INC_BUTTON] = value; }
 void BleGamepadConfiguration::setIncludeVolumeDec(bool value) { _whichSpecialButtons[VOLUME_DEC_BUTTON] = value; }
 void BleGamepadConfiguration::setIncludeVolumeMute(bool value) { _whichSpecialButtons[VOLUME_MUTE_BUTTON] = value; }
+void BleGamepadConfiguration::setIncludeNextTrack(bool value) { _whichSpecialButtons[NEXT_TRACK_BUTTON] = value; }
+void BleGamepadConfiguration::setIncludePreviousTrack(bool value) { _whichSpecialButtons[PREVIOUS_TRACK_BUTTON] = value; }
 void BleGamepadConfiguration::setIncludeXAxis(bool value) { _whichAxes[X_AXIS] = value; }
 void BleGamepadConfiguration::setIncludeYAxis(bool value) { _whichAxes[Y_AXIS] = value; }
 void BleGamepadConfiguration::setIncludeZAxis(bool value) { _whichAxes[Z_AXIS] = value; }
@@ -181,7 +185,6 @@ void BleGamepadConfiguration::setIncludeBrake(bool value) { _whichSimulationCont
 void BleGamepadConfiguration::setIncludeSteering(bool value) { _whichSimulationControls[STEERING] = value; }
 void BleGamepadConfiguration::setVid(uint16_t value) { _vid = value; }
 void BleGamepadConfiguration::setPid(uint16_t value) { _pid = value; }
-void BleGamepadConfiguration::setGuidVersion(uint16_t value) { _guidVersion = value; }
 void BleGamepadConfiguration::setAxesMin(int16_t value) { _axesMin = value; }
 void BleGamepadConfiguration::setAxesMax(int16_t value) { _axesMax = value; }
 void BleGamepadConfiguration::setSimulationMin(int16_t value) { _simulationMin = value; }

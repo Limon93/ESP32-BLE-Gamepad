@@ -68,6 +68,10 @@ public:
     void releaseVolumeInc();
     void pressVolumeDec();
     void releaseVolumeDec();
+	void pressNextTrack();
+	void releaseNextTrack();
+	void pressPreviousTrack();
+	void releasePreviousTrack();
     void pressVolumeMute();
     void releaseVolumeMute();
     void setLeftThumb(int16_t x = 0, int16_t y = 0);

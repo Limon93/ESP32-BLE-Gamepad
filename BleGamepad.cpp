@@ -28,13 +28,12 @@ static const char *LOG_TAG = "BLEGamepad";
 #define CHARACTERISTIC_UUID_HARDWARE_REVISION  "2A27"      // Characteristic - Hardware Revision String - 0x2A27
 
 
-uint8_t tempHidReportDescriptor[150];
+uint8_t tempHidReportDescriptor[250];
 int hidReportDescriptorSize = 0;
 uint8_t reportSize = 0;
 uint8_t numOfButtonBytes = 0;
 uint16_t vid;
 uint16_t pid;
-uint16_t guidVersion;
 uint16_t axesMin;
 uint16_t axesMax;
 uint16_t simulationMin;
@@ -90,7 +89,6 @@ void BleGamepad::begin(BleGamepadConfiguration *config)
 
 	vid = configuration.getVid();
 	pid = configuration.getPid();
-	guidVersion = configuration.getGuidVersion();
 
 	uint8_t high = highByte(vid);
 	uint8_t low = lowByte(vid);
@@ -101,10 +99,6 @@ void BleGamepad::begin(BleGamepadConfiguration *config)
 	low = lowByte(pid);
 
 	pid = low << 8 | high;
-	
-	high = highByte(guidVersion);
-	low = lowByte(guidVersion);
-	guidVersion = low << 8 | high;
 
     uint8_t buttonPaddingBits = 8 - (configuration.getButtonCount() % 8);
     if (buttonPaddingBits == 8)
@@ -299,6 +293,20 @@ void BleGamepad::begin(BleGamepadConfiguration *config)
                 // USAGE (Mute)
                 tempHidReportDescriptor[hidReportDescriptorSize++] = 0x09;
                 tempHidReportDescriptor[hidReportDescriptorSize++] = 0xE2;
+            }
+			
+			if (configuration.getIncludeNextTrack())
+            {
+                // USAGE (Next Track)
+                tempHidReportDescriptor[hidReportDescriptorSize++] = 0x09;
+                tempHidReportDescriptor[hidReportDescriptorSize++] = 0xB5;
+            }
+			
+			if (configuration.getIncludePreviousTrack())
+            {
+                // USAGE (Previous Track)
+                tempHidReportDescriptor[hidReportDescriptorSize++] = 0x09;
+                tempHidReportDescriptor[hidReportDescriptorSize++] = 0xB6;
             }
 
             // INPUT (Data,Var,Abs)
@@ -954,6 +962,26 @@ void BleGamepad::pressVolumeDec()
     pressSpecialButton(VOLUME_DEC_BUTTON);
 }
 
+void BleGamepad::pressNextTrack()
+{
+    pressSpecialButton(NEXT_TRACK_BUTTON);
+}
+
+void BleGamepad::pressPreviousTrack()
+{
+    pressSpecialButton(PREVIOUS_TRACK_BUTTON);
+}
+
+void BleGamepad::releaseNextTrack()
+{
+    releaseSpecialButton(NEXT_TRACK_BUTTON);
+}
+
+void BleGamepad::releasePreviousTrack()
+{
+    releaseSpecialButton(PREVIOUS_TRACK_BUTTON);
+}
+
 void BleGamepad::releaseVolumeDec()
 {
     releaseSpecialButton(VOLUME_DEC_BUTTON);
@@ -1406,7 +1434,7 @@ void BleGamepad::taskServer(void *pvParameter)
     );
     pCharacteristic_Hardware_Revision->setValue(hardwareRevision);
 
-    BleGamepadInstance->hid->pnp(0x01, vid, pid, guidVersion);
+    BleGamepadInstance->hid->pnp(0x01, vid, pid, 0x0110);
     BleGamepadInstance->hid->hidInfo(0x00, 0x01);
 
     NimBLEDevice::setSecurityAuth(BLE_SM_PAIR_AUTHREQ_BOND);

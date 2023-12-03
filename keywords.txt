@@ -130,7 +130,6 @@ getIncludeSteering KEYWORD2
 getWhichSimulationControls KEYWORD2
 getVid KEYWORD2
 getPid KEYWORD2
-getGuidVersion KEYWORD2
 getAxesMin KEYWORD2
 getAxesMax KEYWORD2
 getSimulationMin KEYWORD2
@@ -142,7 +141,6 @@ getFirmwareRevision KEYWORD2
 getHardwareRevision KEYWORD2
 setVid KEYWORD2
 setPid KEYWORD2
-setGuidVersion KEYWORD2
 setAxesMin KEYWORD2
 setAxesMax KEYWORD2
 setSimulationMin KEYWORD2

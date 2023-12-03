@@ -1,7 +1,7 @@
 #ifndef ESP32_BLE_GAMEPAD_CONFIG_H
 #define ESP32_BLE_GAMEPAD_CONFIG_H
 
-#define POSSIBLESPECIALBUTTONS 8
+#define POSSIBLESPECIALBUTTONS 10
 #define POSSIBLEAXES 8
 #define POSSIBLESIMULATIONCONTROLS 5
 
@@ -198,6 +198,8 @@
 #define VOLUME_INC_BUTTON 5
 #define VOLUME_DEC_BUTTON 6
 #define VOLUME_MUTE_BUTTON 7
+#define NEXT_TRACK_BUTTON 8
+#define PREVIOUS_TRACK_BUTTON 9
 
 class BleGamepadConfiguration
 {
@@ -212,7 +214,6 @@ private:
     bool _whichSimulationControls[POSSIBLESIMULATIONCONTROLS];
     uint16_t _vid;
     uint16_t _pid;
-	uint16_t _guidVersion;
     int16_t _axesMin;
     int16_t _axesMax;
     int16_t _simulationMin;
@@ -244,6 +245,8 @@ public:
     bool getIncludeVolumeInc();
     bool getIncludeVolumeDec();
     bool getIncludeVolumeMute();
+	bool getIncludeNextTrack();
+	bool getIncludePreviousTrack();
     const bool *getWhichSpecialButtons() const;
     bool getIncludeXAxis();
     bool getIncludeYAxis();
@@ -262,7 +265,6 @@ public:
     const bool *getWhichSimulationControls() const;
     uint16_t getVid();
     uint16_t getPid();
-	uint16_t getGuidVersion();
     int16_t getAxesMin();
     int16_t getAxesMax();
     int16_t getSimulationMin();
@@ -286,7 +288,9 @@ public:
     void setIncludeVolumeInc(bool value);
     void setIncludeVolumeDec(bool value);
     void setIncludeVolumeMute(bool value);
-    void setWhichSpecialButtons(bool start, bool select, bool menu, bool home, bool back, bool volumeInc, bool volumeDec, bool volumeMute);
+	void setIncludeNextTrack(bool value);
+	void setIncludePreviousTrack(bool value);
+    void setWhichSpecialButtons(bool start, bool select, bool menu, bool home, bool back, bool volumeInc, bool volumeDec, bool volumeMute, bool nextTrack, bool previuosTrack);
     void setIncludeXAxis(bool value);
     void setIncludeYAxis(bool value);
     void setIncludeZAxis(bool value);
@@ -304,7 +308,6 @@ public:
     void setWhichSimulationControls(bool rudder, bool throttle, bool accelerator, bool brake, bool steering);
     void setVid(uint16_t value);
     void setPid(uint16_t value);
-	void setGuidVersion(uint16_t value);
     void setAxesMin(int16_t value);
     void setAxesMax(int16_t value);
     void setSimulationMin(int16_t value);

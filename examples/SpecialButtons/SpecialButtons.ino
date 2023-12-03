@@ -7,7 +7,7 @@ void setup()
 {
     Serial.begin(115200);
     BleGamepadConfiguration bleGamepadConfig;
-    bleGamepadConfig.setWhichSpecialButtons(true, true, true, true, true, true, true, true);
+    bleGamepadConfig.setWhichSpecialButtons(true, true, true, true, true, true, true, true, true, true);
     // Can also enable special buttons individually with the following <-- They are all disabled by default
     // bleGamepadConfig.setIncludeStart(true);
     // bleGamepadConfig.setIncludeSelect(true);
@@ -17,6 +17,8 @@ void setup()
     // bleGamepadConfig.setIncludeVolumeInc(true);
     // bleGamepadConfig.setIncludeVolumeDec(true);
     // bleGamepadConfig.setIncludeVolumeMute(true);
+    // bleGamepadConfig.setIncludeNextTrack(true);
+    // bleGamepadConfig.setIncludePreviousTrack(true);
     bleGamepad.begin(&bleGamepadConfig);
 
     // Changing bleGamepadConfig after the begin function has no effect, unless you call the begin function again
@@ -55,7 +57,6 @@ void loop()
         delay(100);
         bleGamepad.releaseVolumeMute();
 
-
         Serial.println("Pressing menu and back");
         bleGamepad.pressMenu();
         delay(100);
@@ -70,6 +71,17 @@ void loop()
         bleGamepad.pressHome();
         delay(100);
         bleGamepad.releaseHome();
+        delay(2000);
+    
+		Serial.println("Pressing next track");
+        bleGamepad.pressNextTrack();
+        delay(100);
+        bleGamepad.releaseNextTrack();
+        delay(2000);
+        Serial.println("Pressing previous track");
+        bleGamepad.pressPreviousTrack();
+        delay(100);
+        bleGamepad.releasePreviousTrack();
         delay(2000);
     }
 }

@@ -5,7 +5,7 @@ Since version 5 of this library, the axes and simulation controls have configura
 The decision was made to set defaults to 0 for minimum and 32767 for maximum (previously -32767 to 32767)
 This was due to the fact that non-Windows operating systems and some online web-based game controller testers didn't play well with negative numbers. Existing sketches should take note, and see the DrivingControllerTest example for how to set back to -32767 if wanted
 
-This version of the library has been tested against NimBLE-Arduino version 1.4.1; the latest released version --> https://github.com/h2zero/NimBLE-Arduino/releases/tag/1.4.1
+This version of the library has been tested against NimBLE-Arduino version 1.4; the latest released version --> https://github.com/h2zero/NimBLE-Arduino/releases/tag/1.4.0
 
 Please see updated examples
 
@@ -137,7 +137,6 @@ This library allows you to make the ESP32 act as a Bluetooth Gamepad and control
 Relies on [NimBLE-Arduino](https://github.com/h2zero/NimBLE-Arduino)
 
 Use [this](http://www.planetpointy.co.uk/joystick-test-application/) Windows test app to test/see all of the buttons
-Ensure you have Direct X 9 installed
 
 You might also be interested in:
 - [ESP32-BLE-Mouse](https://github.com/T-vK/ESP32-BLE-Mouse)
